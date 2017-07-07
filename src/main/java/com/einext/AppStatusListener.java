@@ -16,8 +16,9 @@ public class AppStatusListener implements StatusListener {
         System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
         String rawJson = TwitterObjectFactory.getRawJSON(status);
         logger.info(rawJson);
+        KafkaSource.send(null, rawJson);
         if(!skipKafka) {
-            KafkaSource.send(null, rawJson);
+
         }
     }
 

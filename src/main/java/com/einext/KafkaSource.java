@@ -8,18 +8,13 @@ import java.util.Properties;
 
 public class KafkaSource {
 
-    private static Producer<String, String> producer;
+
     private static ProducerRecord<String, String> producerRecord;
+    private static Properties properties = PropertiesLoader.getKafkaProperties();
+    private static String topic = properties.getProperty("topic");
+    private static Producer<String, String> producer = new KafkaProducer<>(properties);
 
-    private static String topic;
 
-    {
-        Properties properties = PropertiesLoader.getKafkaProperties();
-        topic = properties.getProperty("topic");
-        properties.remove("topic");
-        producer = new KafkaProducer<>(properties);
-
-    }
 
     public static void send(String key, String message){
         producerRecord = new ProducerRecord<>(topic, key, message);
