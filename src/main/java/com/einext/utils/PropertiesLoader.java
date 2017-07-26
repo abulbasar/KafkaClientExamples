@@ -1,4 +1,4 @@
-package com.einext;
+package com.einext.utils;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -6,15 +6,16 @@ import java.io.InputStream;
 
 
 public class PropertiesLoader {
-    public static Properties getKafkaProperties(){
+    public static Properties loadProperties(String fileName){
         Properties props = new Properties();
-        String filename = "kafka.properties";
         try {
-            InputStream is = PropertiesLoader.class.getClassLoader().getResourceAsStream(filename);
-            props.load(is);
+            InputStream inputStream = PropertiesLoader.class.getClassLoader().getResourceAsStream(fileName);
+            props.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return props;
     }
+
+
 }

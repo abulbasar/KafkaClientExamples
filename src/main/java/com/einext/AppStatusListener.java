@@ -13,12 +13,11 @@ public class AppStatusListener implements StatusListener {
     }
 
     public void onStatus(Status status) {
-        System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+        System.out.printf("@%s: %s\n", status.getUser().getScreenName(), status.getText());
         String rawJson = TwitterObjectFactory.getRawJSON(status);
         logger.info(rawJson);
-        KafkaSource.send(null, rawJson);
         if(!skipKafka) {
-
+            KafkaSource.send(null, rawJson);
         }
     }
 

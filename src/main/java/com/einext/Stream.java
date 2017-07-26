@@ -17,11 +17,9 @@ public class Stream {
 
     public static void main(String[] args) throws Exception {
 
-
         boolean skipKafka = Arrays.asList(args).contains("skip-kafka");
         System.out.println("skip-kafka: " + skipKafka);
         AppStatusListener.setSkipKafka(skipKafka);
-
 
         System.out.println("Twitter screen name of current user: " + twitter.getScreenName());
 
@@ -43,7 +41,7 @@ public class Stream {
         }
 
         if(terms.size() == 0){
-            System.out.println("Specify the terms to track in terms.txt file");
+            System.out.println("Specify the terms to track in terms.txt file in the current directory");
             System.exit(0);
         }
 
@@ -57,8 +55,5 @@ public class Stream {
         filterQuery.language("en");
         filterQuery.track(searchTerms);
         twitterStream.filter(filterQuery);
-
-        logger.info("Simple message");
-
     }
 }
