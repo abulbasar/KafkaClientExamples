@@ -1,0 +1,23 @@
+{"namespace": "com.einext.models.avro",
+ "type": "record",
+ "name": "Transaction",
+ "doc": "iso8583-flows-data-elements-meaning-and-values",
+ "fields": [
+    {"name": "f2", "type": ["string", "null"], "doc": "Primary account number"},
+    {"name": "f3", "type": ["string", "null"], "doc": "Processing code"},
+    {"name": "f4", "type": ["double", "null"], "doc": "Amount transaction"},
+    {"name": "f7", "type": ["string", "null"], "doc": "Transmission date & time"},
+    {"name": "f11", "type": ["string", "null"], "doc": "System trace audit number (STAN)"},
+    {"name": "f12", "type": ["string", "null"], "doc": "Time, local transaction (hhmmss)"},
+    {"name": "f13", "type": ["string", "null"], "doc": "Date, local transaction (MMDD)"},
+    {"name": "f22", "type": ["string", "null"], "doc": "Point of service entry mode"},
+    {"name": "f37", "type": ["string", "null"], "doc": "Retrieval reference number"},
+    {"name": "f39", "type": ["string", "null"], "doc": "Response code"},
+    {"name": "f41", "type": ["string", "null"], "doc": "Card acceptor terminal identification"},
+    {"name": "f42", "type": ["string", "null"], "doc": "Card acceptor identification code"},
+    {"name": "f43", "type": ["string", "null"], "doc": "Card acceptor name/location"},
+    {"name": "f49", "type": ["string", "null"], "doc": "Currency code,  Transaction"},
+    {"name": "producer_id", "type": ["string", "null"], "doc": "Producer ID (uuid)"},
+    {"name": "timestamp", "type": ["long", "null"], "doc": "Timestamp (UTC) at the producer"}
+ ]
+}
