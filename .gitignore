@@ -26,6 +26,6 @@ hs_err_pid*
 /target/
 /data/
 .DS_Store
-/TwitterSource.iml
+/KafkaClients.iml
 /.idea/
 

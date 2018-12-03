@@ -1,4 +1,4 @@
-package com.einext.producer;
+package com.example.producer;
 
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Properties;
 import java.util.UUID;
 
-public class KafkaSource {
+public class KafkaAvroSource {
 
     private final Producer<String, byte[]> producer;
     private final String topic;
@@ -18,10 +18,10 @@ public class KafkaSource {
     private final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
 
-    public KafkaSource(String topic){
+    public KafkaAvroSource(String topic){
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
-        props.put("acks", "all");
+        props.put("acks", "1");
         props.put("retries", 3);
         props.put("batch.size", 256);
         props.put("compression.type", "snappy");

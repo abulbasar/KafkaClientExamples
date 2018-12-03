@@ -1,6 +1,6 @@
-package com.einext.consumer;
+package com.example.consumer;
 
-import com.einext.common.SchemaUtils;
+import com.example.common.SchemaUtils;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Properties;
 
-public class KafkaSink {
+public class KafkaAvroSink {
 
     private KafkaConsumer<String, byte[]> consumer = null;
     private Logger logger = LoggerFactory.getLogger(getClass().getName());
     private SchemaUtils schemaUtils = null;
 
-    public KafkaSink() throws IOException {
+    public KafkaAvroSink() throws IOException {
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
         props.put("auto.offset.reset", "latest");
@@ -30,22 +30,22 @@ public class KafkaSink {
         schemaUtils = new SchemaUtils("Transaction.avsc");
     }
 
-    public void subscribe(String topic){
+    public void subscribe(String topic) {
         consumer.subscribe(Collections.singletonList(topic));
-        while (true){
+        while (true) {
             ConsumerRecords<String, byte[]> records = consumer.poll(1000);
             records.forEach(record -> {
-                try{
+                try {
                     GenericRecord transaction = schemaUtils.deserialize(record.value());
                     System.out.println(transaction);
-                }catch (Throwable throwable){
+                } catch (Throwable throwable) {
                     throwable.printStackTrace();
                 }
             });
         }
     }
 
-    public void close(){
+    public void close() {
         logger.info("Closing the connection to kafka broker");
         consumer.close();
     }

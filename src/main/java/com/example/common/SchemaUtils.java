@@ -1,4 +1,4 @@
-package com.einext.common;
+package com.example.common;
 
 import com.twitter.bijection.Injection;
 import com.twitter.bijection.avro.GenericAvroCodecs;

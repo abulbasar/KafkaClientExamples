@@ -1,8 +1,8 @@
-package com.einext;
+package com.example;
 
-import com.einext.common.SchemaUtils;
-import com.einext.consumer.KafkaSink;
-import com.einext.producer.KafkaSource;
+import com.example.common.SchemaUtils;
+import com.example.consumer.KafkaAvroSink;
+import com.example.producer.KafkaAvroSource;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
@@ -22,10 +22,10 @@ public class Run {
         logger.info("Schema: ", schema, schema == null);
 
 
-        KafkaSource kafka = new KafkaSource("sample");
+        KafkaAvroSource kafka = new KafkaAvroSource("demo");
         for(int i = 0; i < 3; ++i){
             GenericRecord transaction = new GenericData.Record(schema);
-            transaction.put("f2", String.format("abul %d", i));
+            transaction.put("f2", String.format("message %d", i));
             byte[] bytes = schemaUtils.serialize(transaction);
             kafka.send(bytes);
         }
@@ -33,8 +33,8 @@ public class Run {
     }
 
     private static void runConsumer() throws IOException{
-        KafkaSink kafka = new KafkaSink();
-        kafka.subscribe("sample");
+        KafkaAvroSink kafka = new KafkaAvroSink();
+        kafka.subscribe("demo");
         kafka.close();
     }
 
