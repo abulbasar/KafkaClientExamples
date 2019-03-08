@@ -13,6 +13,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+
+/*
+$ java -cp target/KafkaClients-0.1-jar-with-dependencies.jar com.example.retail.RetailProducer 1000 10 ../online-retail-dataset.csv
+
+* */
+
 public class RetailProducer {
 
     private static Logger logger = LoggerFactory.getLogger(RetailProducer.class.getName());
