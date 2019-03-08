@@ -63,6 +63,7 @@ public class RetailProducer {
 
     private void start(){
         BufferedReader reader;
+        int count = 0;
         try {
             reader = new BufferedReader(new FileReader(this.sourceFile));
             String line = reader.readLine();
@@ -70,9 +71,19 @@ public class RetailProducer {
                 System.out.println(line);
                 line = reader.readLine();
                 this.send(this.topicName, null, line);
+                if(this.delayBetweenMessage > 0){
+                    Thread.sleep(delayBetweenMessage);
+                }
+                if(count > this.countOfMessages){
+                    break;
+                }
+                ++count;
             }
             reader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -85,10 +96,14 @@ public class RetailProducer {
         int countOfMessage = 10;
         String sourceFile = args[0];
 
-        if (args.length < 2) {
-            System.out.println("Usage: java -cp <jar> com.example.producer.RetailProducer <message count per thread> <delay ms>");
+        if (args.length != 3) {
+            System.out.println("Usage: java -cp <jar> com.example.producer.RetailProducer <delay> <count> <source file>");
             System.exit(0);
         }
+        countOfMessage = Integer.valueOf(args[1]);
+        delayBetweenMessages = Integer.valueOf(args[0]);
+        sourceFile = args[2];
+
         new RetailProducer(countOfMessage, delayBetweenMessages, sourceFile).start();
     }
 }
