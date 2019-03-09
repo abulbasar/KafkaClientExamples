@@ -80,7 +80,7 @@ public class RetailProducer {
                 if(this.delayBetweenMessage > 0){
                     Thread.sleep(delayBetweenMessage);
                 }
-                if(count > this.countOfMessages){
+                if(count > this.countOfMessages && this.countOfMessages>0){
                     break;
                 }
                 ++count;
