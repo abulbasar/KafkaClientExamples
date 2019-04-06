@@ -57,28 +57,37 @@ public class JsonProducer {
 
     public void run() {
 
-        logger.info(String.format("Delay between messages: %d, count: %d"
+        logger.info(String.format("Delay between messages: %d ms, count: %d"
                 , delayBetweenMessage, countOfMessages));
 
-        Instant start = Instant.now();
+        long startTime = System.currentTimeMillis();
+        int count = 0;
 
         for (Transaction t : Transaction.randomGenerate(countOfMessages)) {
             try {
-                send("demo", t.getSourceId(), t.toJson());
+                send("logs", t.getSourceId(), t.toJson());
                 if(delayBetweenMessage>0) {
                     Thread.sleep(delayBetweenMessage);
                 }
+
+                count++;
+
+                double rate = count * 1000.0 / (System.currentTimeMillis() - startTime) ;
+
+                if(count % 1000 == 0) {
+                    System.out.println(String.format("Avg data rate: %.2f (EPS)", rate));
+                }
+
             } catch (InterruptedException ex) {
                 break;
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-        Instant end = Instant.now();
-        long duration = end.toEpochMilli() - start.toEpochMilli();
-        logger.info(String.format("Total time taken: %d", duration));
         close();
     }
+
+
 
     public static void main(String[] args) {
 
@@ -86,9 +95,10 @@ public class JsonProducer {
         int countOfMessage = 10;
 
         if (args.length < 2) {
-            System.out.println("Usage: java -cp <jar> com.example.producer.JsonProducer <message count per thread> <delay ms>");
+            System.out.println("Usage: java -cp <path for KafkaClients-0.1-jar-with-dependencies.jar> com.example.producer.JsonProducer <message count> <delay ms>");
             System.exit(0);
         }
+
         countOfMessage = Integer.valueOf(args[0]);
         delayBetweenMessages = Integer.valueOf(args[1]);
 

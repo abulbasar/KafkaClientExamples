@@ -14,6 +14,8 @@ public class JsonProducerCallback implements Callback {
         if(e != null){
             logger.error(e.getMessage(), e);
         }
-        logger.debug(String.format("%s %d", recordMetadata.topic(), recordMetadata.offset()));
+        if(recordMetadata != null) {
+            logger.debug(String.format("%s %d", recordMetadata.topic(), recordMetadata.offset()));
+        }
     }
 }
