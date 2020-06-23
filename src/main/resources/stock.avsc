@@ -1,0 +1,15 @@
+{"namespace": "com.example.models",
+ "type": "record",
+ "name": "Stock",
+ "doc": "iso8583-flows-data-elements-meaning-and-values",
+ "fields": [
+    {"name": "date", "type": ["string", "null"], "doc": "date of record", "alias": ["Date"]},
+    {"name": "open", "type": ["double", "null"]},
+    {"name": "high", "type": ["double", "null"]},
+    {"name": "low", "type": ["double", "null"]},
+    {"name": "close", "type": ["double", "null"]},
+    {"name": "volume", "type": ["double", "null"]},
+    {"name": "adjclose", "type": ["double", "null"]},
+    {"name": "symbol", "type": ["string", "null"]}
+ ]
+}
